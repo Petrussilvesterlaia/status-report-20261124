@@ -32,6 +32,15 @@ def main() -> int:
         print(f"FAIL: expected exactly 1 line, got {len(lines)}", file=sys.stderr)
         return 1
     line = lines[0]
+    if line != line.strip():
+        print("FAIL: entry has leading or trailing whitespace", file=sys.stderr)
+        return 1
+    if "\n" in line or "\r" in line:
+        print("FAIL: entry contains an embedded newline", file=sys.stderr)
+        return 1
+    if "\t" in line:
+        print("FAIL: entry contains a tab character", file=sys.stderr)
+        return 1
     if not line.strip():
         print("FAIL: entry is blank", file=sys.stderr)
         return 1
